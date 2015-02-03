@@ -1,6 +1,7 @@
-Programming Assignment 1: Percolation: Instructions Help Center
+## Programming Assignment 1: Percolation
 
-Specification
+### Specification
 Here is the programming assignment specification that describes the assignment requirements.
 
-Be sure that your programs conform to the prescribed APIs, including using the "default" package. Also, do not call any library functions except those in java.lang, stdlib.jar, and algs4.jar, which you may assume are in the Java classpath. 
+*Note:*
+It was required that the program conforms to the prescribed APIs, including using the "default" package. Also, it could not call any library functions except those in java.lang, stdlib.jar, and algs4.jar. 
