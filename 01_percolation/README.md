@@ -1,6 +1,6 @@
-# Programming Assignment 1: Percolation
+## Programming Assignment 1: Percolation
 
-## Specification
+### Specification
 Here is the programming assignment specification that describes the assignment requirements.
 
 *Note:*
