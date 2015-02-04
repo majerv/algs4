@@ -207,8 +207,7 @@ public class DequeTest {
     }
 
     // then
-    ASSERT.that(results).containsExactly(IGGLE_PIGGLE, MAKKA_PAKKA, UPSY_DAISY, TOMBLIBOOS)
-        .inOrder();
+    ASSERT.that(results).containsExactly(IGGLE_PIGGLE, MAKKA_PAKKA, UPSY_DAISY, TOMBLIBOOS).inOrder();
   }
 
   @Test(expected = ConcurrentModificationException.class)
@@ -233,14 +232,14 @@ public class DequeTest {
       iterator.remove();
     }
   }
-
+  
   @Test(expected = NoSuchElementException.class)
   public void fetchNextNotAllowedThroughEmptyIterator() {
     // given
 
     // when
-    final Iterator<String> iterator = deque.iterator();
-
+    final Iterator<String> iterator = deque.iterator(); 
+    
     // then
     iterator.next();
   }

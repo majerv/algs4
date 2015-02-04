@@ -9,3 +9,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.truth:truth:0.25'
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src"]
+        }
+    }
+    test {
+        java {
+            srcDirs = ["test"]
+        }
+    }
+}
