@@ -13,13 +13,10 @@ import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * Unit test for {@link Deque}.
+ */
 public class DequeTest {
-
-  private static final String MAKKA_PAKKA = "MakkaPakka";
-  private static final String UPSY_DAISY = "UpsyDaisy";
-  private static final String IGGLE_PIGGLE = "IgglePiggle";
-  private static final String TOMBLIBOOS = "Tombliboos";
 
   // unit under test
   private Deque<String> deque;
@@ -72,7 +69,7 @@ public class DequeTest {
   @Test
   public void dequeIsNotEmptyIfItemAddedFirst() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
+    deque.addFirst(TestData.MAKKA_PAKKA);
 
     // then
     verifyNotEmpty();
@@ -82,7 +79,7 @@ public class DequeTest {
   @Test
   public void dequeIsNotEmptyIfItemAddedLast() {
     // given
-    deque.addLast(MAKKA_PAKKA);
+    deque.addLast(TestData.MAKKA_PAKKA);
 
     // then
     verifyNotEmpty();
@@ -92,67 +89,67 @@ public class DequeTest {
   @Test
   public void addFirst_RemoveFirst_Sequence() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
+    deque.addFirst(TestData.MAKKA_PAKKA);
 
     // when
     final String item = deque.removeFirst();
 
     // then
-    assertEquals(MAKKA_PAKKA, item);
+    assertEquals(TestData.MAKKA_PAKKA, item);
     verifyEmpty();
   }
 
   @Test
   public void addFirst_RemoveLast_Sequence() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
+    deque.addFirst(TestData.MAKKA_PAKKA);
 
     // when
     final String item = deque.removeLast();
 
     // then
-    assertEquals(MAKKA_PAKKA, item);
+    assertEquals(TestData.MAKKA_PAKKA, item);
     verifyEmpty();
   }
 
   @Test
   public void addLast_RemoveLast_Sequence() {
     // given
-    deque.addLast(MAKKA_PAKKA);
+    deque.addLast(TestData.MAKKA_PAKKA);
 
     // when
     final String item = deque.removeLast();
 
     // then
-    assertEquals(MAKKA_PAKKA, item);
+    assertEquals(TestData.MAKKA_PAKKA, item);
     verifyEmpty();
   }
 
   @Test
   public void addLast_RemoveFirst_Sequence() {
     // given
-    deque.addLast(MAKKA_PAKKA);
+    deque.addLast(TestData.MAKKA_PAKKA);
 
     // when
     final String item = deque.removeFirst();
 
     // then
-    assertEquals(MAKKA_PAKKA, item);
+    assertEquals(TestData.MAKKA_PAKKA, item);
     verifyEmpty();
   }
 
   @Test
   public void removeFirstFromMultipleItems() {
     // given
-    deque.addLast(MAKKA_PAKKA);
-    deque.addLast(IGGLE_PIGGLE);
-    deque.addLast(UPSY_DAISY);
+    deque.addLast(TestData.MAKKA_PAKKA);
+    deque.addLast(TestData.IGGLE_PIGGLE);
+    deque.addLast(TestData.UPSY_DAISY);
 
     // when
     final String item = deque.removeFirst();
 
     // then
-    assertEquals(MAKKA_PAKKA, item);
+    assertEquals(TestData.MAKKA_PAKKA, item);
     verifyNotEmpty();
     verifySize(2);
   }
@@ -160,15 +157,15 @@ public class DequeTest {
   @Test
   public void removeLastFromMultipleItems() {
     // given
-    deque.addLast(MAKKA_PAKKA);
-    deque.addLast(IGGLE_PIGGLE);
-    deque.addLast(UPSY_DAISY);
+    deque.addLast(TestData.MAKKA_PAKKA);
+    deque.addLast(TestData.IGGLE_PIGGLE);
+    deque.addLast(TestData.UPSY_DAISY);
 
     // when
     final String item = deque.removeLast();
 
     // then
-    assertEquals(UPSY_DAISY, item);
+    assertEquals(TestData.UPSY_DAISY, item);
     verifyNotEmpty();
     verifySize(2);
   }
@@ -176,9 +173,9 @@ public class DequeTest {
   @Test
   public void testIteratorViaForLoop() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
-    deque.addFirst(UPSY_DAISY);
-    deque.addFirst(IGGLE_PIGGLE);
+    deque.addFirst(TestData.MAKKA_PAKKA);
+    deque.addFirst(TestData.UPSY_DAISY);
+    deque.addFirst(TestData.IGGLE_PIGGLE);
 
     // when
     final List<String> results = new ArrayList<>();
@@ -188,16 +185,18 @@ public class DequeTest {
     }
 
     // then
-    ASSERT.that(results).containsExactly(IGGLE_PIGGLE, UPSY_DAISY, MAKKA_PAKKA).inOrder();
+    ASSERT.that(results)
+        .containsExactly(TestData.IGGLE_PIGGLE, TestData.UPSY_DAISY, TestData.MAKKA_PAKKA)
+        .inOrder();
   }
 
   @Test
   public void testIterator() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
-    deque.addLast(UPSY_DAISY);
-    deque.addFirst(IGGLE_PIGGLE);
-    deque.addLast(TOMBLIBOOS);
+    deque.addFirst(TestData.MAKKA_PAKKA);
+    deque.addLast(TestData.UPSY_DAISY);
+    deque.addFirst(TestData.IGGLE_PIGGLE);
+    deque.addLast(TestData.TOMBLIBOOS);
 
     // when
     final List<String> results = new ArrayList<>();
@@ -207,14 +206,17 @@ public class DequeTest {
     }
 
     // then
-    ASSERT.that(results).containsExactly(IGGLE_PIGGLE, MAKKA_PAKKA, UPSY_DAISY, TOMBLIBOOS).inOrder();
+    ASSERT
+        .that(results)
+        .containsExactly(TestData.IGGLE_PIGGLE, TestData.MAKKA_PAKKA, TestData.UPSY_DAISY,
+            TestData.TOMBLIBOOS).inOrder();
   }
 
   @Test(expected = ConcurrentModificationException.class)
   public void concurrentModificationIsDetected() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
-    deque.addFirst(UPSY_DAISY);
+    deque.addFirst(TestData.MAKKA_PAKKA);
+    deque.addFirst(TestData.UPSY_DAISY);
 
     // when
     for (String item : deque) {
@@ -225,21 +227,21 @@ public class DequeTest {
   @Test(expected = UnsupportedOperationException.class)
   public void removeNotAllowedThroughIterator() {
     // given
-    deque.addFirst(MAKKA_PAKKA);
+    deque.addFirst(TestData.MAKKA_PAKKA);
 
     // when
     for (Iterator<String> iterator = deque.iterator(); iterator.hasNext();) {
       iterator.remove();
     }
   }
-  
+
   @Test(expected = NoSuchElementException.class)
   public void fetchNextNotAllowedThroughEmptyIterator() {
     // given
 
     // when
-    final Iterator<String> iterator = deque.iterator(); 
-    
+    final Iterator<String> iterator = deque.iterator();
+
     // then
     iterator.next();
   }

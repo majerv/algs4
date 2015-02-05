@@ -6,6 +6,8 @@ repositories {
 }
 
 dependencies {
+	compile files('../common_lib/algs4.jar', '../common_lib/stdlib.jar')
+	
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.truth:truth:0.25'
 }
