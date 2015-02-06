@@ -6,12 +6,12 @@ import java.util.NoSuchElementException;
  * A linear collection that supports element insertion and removal at both ends. The name
  * <i>deque</i> is short for "double ended queue" and is usually pronounced "deck".
  * 
- * @param <E> the type of the contained items
+ * @param <Item> the type of the contained items
  */
-public class Deque<E> implements Iterable<E> {
+public class Deque<Item> implements Iterable<Item> {
 
-  private Node<E> first;
-  private Node<E> last;
+  private Node<Item> first;
+  private Node<Item> last;
 
   private int size;
   private int modCount;
@@ -19,7 +19,9 @@ public class Deque<E> implements Iterable<E> {
   /**
    * Constructs an empty deque.
    */
-  public Deque() {}
+  public Deque() {
+    // nothing to do
+  }
 
   /**
    * Indicates if the deque is empty.
@@ -44,11 +46,11 @@ public class Deque<E> implements Iterable<E> {
    * 
    * @param item
    */
-  public void addFirst(final E item) {
+  public void addFirst(final Item item) {
     checkItemNotNull(item);
 
-    final Node<E> prevFirst = first;
-    final Node<E> newNode = new Node<>(null, item, prevFirst);
+    final Node<Item> prevFirst = first;
+    final Node<Item> newNode = new Node<>(null, item, prevFirst);
 
     first = newNode;
 
@@ -68,11 +70,11 @@ public class Deque<E> implements Iterable<E> {
    * @param item the item to be inserted
    * @throws NullPointerException if item is null
    */
-  public void addLast(final E item) {
+  public void addLast(final Item item) {
     checkItemNotNull(item);
 
-    final Node<E> prevLast = last;
-    final Node<E> newNode = new Node<>(prevLast, item, null);
+    final Node<Item> prevLast = last;
+    final Node<Item> newNode = new Node<>(prevLast, item, null);
 
     last = newNode;
 
@@ -91,14 +93,14 @@ public class Deque<E> implements Iterable<E> {
    * 
    * @return
    */
-  public E removeFirst() {
+  public Item removeFirst() {
     if (first == null) {
       throw new NoSuchElementException("Cannot remove first item from an empty deque");
     }
 
-    final Node<E> oldFirst = first;
-    final E item = oldFirst.item;
-    final Node<E> next = oldFirst.next;
+    final Node<Item> oldFirst = first;
+    final Item item = oldFirst.item;
+    final Node<Item> next = oldFirst.next;
 
     first = next;
     if (next == null) {
@@ -122,14 +124,14 @@ public class Deque<E> implements Iterable<E> {
    * 
    * @return
    */
-  public E removeLast() {
+  public Item removeLast() {
     if (last == null) {
       throw new NoSuchElementException("Cannot remove last item from an empty deque");
     }
 
-    final Node<E> oldLast = last;
-    final E item = oldLast.item;
-    final Node<E> prev = oldLast.prev;
+    final Node<Item> oldLast = last;
+    final Item item = oldLast.item;
+    final Node<Item> prev = oldLast.prev;
 
     last = prev;
     if (prev == null) {
@@ -152,21 +154,21 @@ public class Deque<E> implements Iterable<E> {
    * Creates an iterator over items in order from front to end.
    */
   @Override
-  public Iterator<E> iterator() {
+  public Iterator<Item> iterator() {
     return new DequeIterator();
   }
 
-  private void checkItemNotNull(final E item) {
+  private void checkItemNotNull(final Item item) {
     if (item == null) {
       throw new NullPointerException("Cannot add a null item to the deque");
     }
   }
 
-  private class DequeIterator implements Iterator<E> {
+  private class DequeIterator implements Iterator<Item> {
 
     private final int expectedModCount = modCount;
 
-    private Node<E> cursor = first;
+    private Node<Item> cursor = first;
 
     @Override
     public boolean hasNext() {
@@ -174,14 +176,14 @@ public class Deque<E> implements Iterable<E> {
     }
 
     @Override
-    public E next() {
+    public Item next() {
       checkForComodification();
 
       if (!hasNext()) {
         throw new NoSuchElementException("There is no next element to iterate over");
       }
 
-      final E item = cursor.item;
+      final Item item = cursor.item;
       cursor = cursor.next;
       return item;
     }

@@ -7,14 +7,14 @@ import java.util.NoSuchElementException;
  * A randomized queue that is similar to a stack or queue, except that the item removed is chosen
  * uniformly at random from items in the data structure.
  * 
- * @param <E> the type of the elements stored in the queue
+ * @param <Item> the type of the elements stored in the queue
  */
-public class RandomizedQueue<E> implements Iterable<E> {
+public class RandomizedQueue<Item> implements Iterable<Item> {
 
   private static final int DEFAULT_CAPACITY = 2;
   private static final float SHRINK_FACTOR = 0.25f;
 
-  private E[] items;
+  private Item[] items;
   private int size;
   private int capacity;
 
@@ -53,7 +53,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
    * 
    * @param item the element to insert
    */
-  public void enqueue(final E item) {
+  public void enqueue(final Item item) {
     if (item == null) {
       throw new NullPointerException("Cannot add null to the queue");
     }
@@ -73,38 +73,39 @@ public class RandomizedQueue<E> implements Iterable<E> {
    * 
    * @return a random item that is being removed from the queue
    */
-  public E dequeue() {
+  public Item dequeue() {
     checkEmpty();
 
     final int removedIndex = getRandomItemIndex();
-    final E removedItem = items[removedIndex];
+    final Item removedItem = items[removedIndex];
 
     final int lastIndex = --back;
 
     if (removedIndex != lastIndex) { // delete didn't happen at the end
       items[removedIndex] = items[lastIndex];
-      items[lastIndex] = null; // avoid loitering
     }
+
+    items[lastIndex] = null; // avoid loitering
 
     --size;
     ++modCount;
 
     final int shrinkThreshold = Math.round(capacity * SHRINK_FACTOR);
-    if (size <= shrinkThreshold) {
+    if (size < shrinkThreshold) {
       resize(shrinkThreshold);
     }
 
     return removedItem;
   }
 
-  public E sample() {
+  public Item sample() {
     checkEmpty();
     return items[getRandomItemIndex()];
   }
 
   // return an independent iterator over items in random order
   @Override
-  public Iterator<E> iterator() {
+  public Iterator<Item> iterator() {
     return new RandomizedQueueIterator();
   }
 
@@ -129,12 +130,11 @@ public class RandomizedQueue<E> implements Iterable<E> {
     back = size;
   }
 
-  @SuppressWarnings("unchecked")
-  private E[] createEmptyArray() {
-    return (E[]) new Object[] {};
+  private Item[] createEmptyArray() {
+    return (Item[]) new Object[] {};
   }
 
-  private class RandomizedQueueIterator implements Iterator<E> {
+  private class RandomizedQueueIterator implements Iterator<Item> {
 
     private final int expectedModCount = modCount;
     private final int[] itemIndices = new int[size()];
@@ -155,7 +155,7 @@ public class RandomizedQueue<E> implements Iterable<E> {
     }
 
     @Override
-    public E next() {
+    public Item next() {
       if (expectedModCount != modCount) {
         throw new ConcurrentModificationException();
       }
