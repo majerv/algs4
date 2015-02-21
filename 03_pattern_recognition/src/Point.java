@@ -12,12 +12,9 @@ public class Point implements Comparable<Point> {
       final double slope1 = slopeTo(point);
       final double slope2 = slopeTo(point2);
 
-      if (slope1 == Double.NEGATIVE_INFINITY || slope2 == Double.NEGATIVE_INFINITY) {
+      if (slope1 == slope2 || slope1 == Double.NEGATIVE_INFINITY
+          || slope2 == Double.NEGATIVE_INFINITY) {
         return point.compareTo(point2);
-      }
-
-      if (slope1 == slope2) {
-        return (slope1 == 0) ? (point.x - point2.x) : 0;
       } else if (slope1 < slope2) {
         return -1;
       } else {

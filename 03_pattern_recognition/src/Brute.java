@@ -27,6 +27,8 @@ public class Brute {
       // StdOut.println(points[i]);
     }
 
+    Arrays.sort(points, points[0].SLOPE_ORDER);
+
     for (int i = 0; i < size - 3; i++) {
       for (int j = i + 1; j < size - 2; j++) {
         for (int k = j + 1; k < size - 1; k++) {
