@@ -71,6 +71,10 @@ public class Point implements Comparable<Point> {
    */
   @Override
   public int compareTo(final Point that) {
+    if (this == that) {
+      return 0;
+    }
+
     final int diff = y - that.y;
     return diff == 0 ? (x - that.x) : diff;
   }
