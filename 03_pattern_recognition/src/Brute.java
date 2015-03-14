@@ -61,7 +61,6 @@ public class Brute {
       drawPoint(points[i]);
     }
 
-    Arrays.sort(points, points[0].SLOPE_ORDER);
     return points;
   }
 
@@ -94,8 +93,6 @@ public class Brute {
     tuple[1] = points[j];
     tuple[2] = points[k];
     tuple[3] = points[m];
-
-    Arrays.sort(tuple, tuple[0].SLOPE_ORDER);
   }
 
   private static boolean isCollinear(final Point[] tuple) {
@@ -110,6 +107,8 @@ public class Brute {
 
   private static void print(final Point[] tuple) {
     final int size = tuple.length;
+
+    Arrays.sort(tuple);
 
     for (int n = 0; n < size; n++) {
       StdOut.print(tuple[n]);

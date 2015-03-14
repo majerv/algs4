@@ -12,14 +12,16 @@ public class Point implements Comparable<Point> {
       final double slope1 = slopeTo(point);
       final double slope2 = slopeTo(point2);
 
-      if (slope1 == slope2 || slope1 == Double.NEGATIVE_INFINITY
-          || slope2 == Double.NEGATIVE_INFINITY) {
-        return point.compareTo(point2);
+      int returnValue;
+      if (slope1 == slope2) {
+        returnValue = 0;
       } else if (slope1 < slope2) {
-        return -1;
+        returnValue = -1;
       } else {
-        return 1;
+        returnValue = 1;
       }
+
+      return returnValue;
     }
   };
 
@@ -76,7 +78,12 @@ public class Point implements Comparable<Point> {
     }
 
     final int diff = y - that.y;
-    return diff == 0 ? (x - that.x) : diff;
+
+    if (diff == 0) {
+      return x - that.x;
+    } else {
+      return diff;
+    }
   }
 
   /**
