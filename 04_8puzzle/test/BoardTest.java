@@ -32,8 +32,8 @@ public class BoardTest {
     board = createFrom(blocks);
 
     // then
-    System.out.println("Board: " + board.toString());
-    System.out.println("Twin: " + board.twin().toString());
+    System.out.println("Board: " + board);
+    System.out.println("Twin: " + board.twin());
   }
 
   @Test
@@ -65,7 +65,8 @@ public class BoardTest {
     final Iterable<Board> neighbors = board.neighbors();
 
     // then
-    System.out.println(neighbors);
+    System.out.println("Original: " + board);
+    System.out.println("Neighbors: " + neighbors);
   }
 
   private static Board createFrom(final int[][] blocks) {

@@ -19,15 +19,14 @@ public class Board {
    * @param blocks
    */
   public Board(int[][] blocks) {
+    if (blocks == null) {
+      throw new NullPointerException("Array of blocks cannot be null");
+    }
+
     final int width = blocks.length;
-    final int count = width * width;
 
     if (width < 2) {
       throw new IllegalArgumentException("The size of the puzzle is too low.");
-    }
-
-    if (count > Integer.MAX_VALUE) {
-      throw new IllegalArgumentException("The size of the puzzle is too large.");
     }
 
     this.dimension = width;
@@ -91,7 +90,7 @@ public class Board {
 
   // is this board the goal board?
   public boolean isGoal() {
-    return 0 == manhattan();
+    return 0 == hamming();
   }
 
   // a board that is obtained by exchanging two adjacent blocks in the same row
@@ -196,8 +195,15 @@ public class Board {
     copiedBlocks[row][1] = tmp;
   }
 
-  private int[][] copyOf(int[][] blocks) {
-    return Arrays.copyOf(blocks, blocks.length);
+  private int[][] copyOf(int[][] blocksToCopy) {
+    final int length = blocksToCopy.length;
+    final int[][] copiedBlocks = new int[length][length];
+
+    for (int i = 0; i < length; i++) {
+      copiedBlocks[i] = Arrays.copyOf(blocksToCopy[i], length);
+    }
+
+    return copiedBlocks;
   }
 
   private void changeBlocks(int[][] copiedBlocks, int row, int column, int row2, int column2) {
